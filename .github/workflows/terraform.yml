@@ -43,8 +43,9 @@ jobs:
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
-    # - name: Terraform Format
-    #   run: terraform fmt -check
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
@@ -58,7 +59,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             </details>
 
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
