@@ -45,3 +45,15 @@ variable "route_table_name" {
   type        = string
   default     = ""
 }
+
+variable "sg_name" {
+  description = "The name of the security group"
+  type        = string
+  default     = ""
+}
+
+variable "app_port" {
+  description = "Port exposed by docker image to redirect traffic to"
+  type        = number
+  default     = 0
+}

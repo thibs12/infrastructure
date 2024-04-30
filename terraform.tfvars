@@ -6,3 +6,5 @@ private_subnet_cidr = "172.16.3.0/26"
 subnet_name         = "TL-Subnet"
 nat_gtw_name        = "TL-NAT-GTW"
 route_table_name    = "TL-Route-Table"
+sg_name             = "TL-SG"
+app_port            = 3000
