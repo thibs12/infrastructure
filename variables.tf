@@ -69,3 +69,39 @@ variable "alb_name" {
   type        = string
   default     = ""
 }
+
+variable "app_image" {
+  description = "The docker image to deploy"
+  type        = string
+  default     = ""
+}
+
+variable "cluster_name" {
+  description = "The name of the ECS cluster"
+  type        = string
+  default     = ""
+}
+
+variable "fargate_cpu" {
+  description = "The amount of CPU to allocate to the container"
+  type        = string
+  default     = ""
+}
+
+variable "fargate_memory" {
+  description = "The amount of memory to allocate to the container"
+  type        = string
+  default     = ""
+}
+
+variable "app_count" {
+  description = "The number of tasks to run"
+  type        = number
+  default     = 0
+}
+
+variable "ecs_task_name" {
+  description = "The name of the ECS task"
+  type        = string
+  default     = ""
+}

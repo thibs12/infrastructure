@@ -10,3 +10,10 @@ sg_name             = "TL-SG"
 app_port            = 3000
 alb_name            = "TL-ALB"
 health_check_path   = "/"
+app_image           = "TODO"
+fargate_cpu         = 256
+fargate_memory      = 512
+app_count           = 2
+cluster_name        = "TL-ECS"
+ecs_task_name       = "limited-TL-ECS-Task"
+
