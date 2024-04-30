@@ -2,7 +2,6 @@ resource "aws_appautoscaling_target" "target" {
   max_capacity       = 6
   min_capacity       = 2
   resource_id        = var.resource_id
-  role_arn           = var.role_arn
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
