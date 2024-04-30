@@ -8,3 +8,5 @@ nat_gtw_name        = "TL-NAT-GTW"
 route_table_name    = "TL-Route-Table"
 sg_name             = "TL-SG"
 app_port            = 3000
+alb_name            = "TL-ALB"
+health_check_path   = "/"

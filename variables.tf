@@ -57,3 +57,15 @@ variable "app_port" {
   type        = number
   default     = 0
 }
+
+variable "health_check_path" {
+  description = "The path to the health check endpoint"
+  type        = string
+  default     = ""
+}
+
+variable "alb_name" {
+  description = "The name of the ALB"
+  type        = string
+  default     = ""
+}
