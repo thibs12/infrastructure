@@ -10,10 +10,10 @@ variable "vpc_id" {
   default = ""
 }
 
-variable "public_subnet_id" {
-  description = "Public Subnet ID"
-  type        = string
-  default = ""
+variable "public_subnet_ids" {
+  description = "Public Subnet IDs"
+  type        = list(string)
+  default = []
 }
 
 variable "alb_sg_id" {

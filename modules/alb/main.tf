@@ -1,6 +1,6 @@
 resource "aws_alb" "main_alb" {
   name = "${var.alb_name}-alb"
-  subnets = [var.public_subnet_id]
+  subnets = var.public_subnet_ids
   security_groups = [var.alb_sg_id]
 }
 

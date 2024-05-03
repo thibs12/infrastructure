@@ -17,15 +17,15 @@ variable "vpc_name" {
 }
 
 variable "public_subnet_cidr" {
-  description = "The CIDR block for the subnet"
-  type        = string
-  default     = ""
+  description = "The CIDR block for the subnets"
+  type        = list(string)
+  default     = []
 }
 
 variable "private_subnet_cidr" {
-  description = "The CIDR block for the private subnet"
-  type        = string
-  default     = ""
+  description = "The CIDR block for the private subnets"
+  type        = list(string)
+  default     = []
 }
 
 variable "subnet_name" {
