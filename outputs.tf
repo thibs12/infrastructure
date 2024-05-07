@@ -1,3 +1,3 @@
 output "alb_hostname" {
-  value = "${module.alb.alb_hostname}:3000"
+  value = "${module.alb.alb_hostname}:${var.app_port}"
 }

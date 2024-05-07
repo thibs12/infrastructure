@@ -2,6 +2,9 @@
   {
     "name": "app",
     "image": "${app_image}",
+    "repositoryCredentials": {
+      "credentialsParameter": "arn:aws:secretsmanager:eu-west-1:891377364444:secret:docker_credentials-XgV9MJ"
+      },
     "cpu": ${fargate_cpu},
     "memory": ${fargate_memory},
     "networkMode": "awsvpc",

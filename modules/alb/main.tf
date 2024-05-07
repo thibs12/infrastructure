@@ -6,7 +6,7 @@ resource "aws_alb" "main_alb" {
 
 resource "aws_alb_target_group" "target_app" {
   name = "${var.alb_name}-target-group"
-  port = var.app_port
+  port = 80 #var.app_port
   protocol = "HTTP"
   vpc_id = var.vpc_id
   target_type = "ip"
@@ -23,7 +23,7 @@ resource "aws_alb_target_group" "target_app" {
 
 resource "aws_alb_listener" "front_end" {
   load_balancer_arn = aws_alb.main_alb.arn
-  port = 80
+  port = var.app_port#80
   protocol = "HTTP"
 
   default_action {
