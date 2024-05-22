@@ -8,8 +8,10 @@ data "template_file" "template_app" {
   vars = {
     app_image      = var.app_image
     app_port       = var.app_port
-    fargate_cpu    = var.fargate_cpu
-    fargate_memory = var.fargate_memory
+    app_cpu        = var.app_cpu
+    app_memory     = var.app_memory
+    db_cpu         = var.db_cpu
+    db_memory      = var.db_memory
     aws_region     = var.aws_region
   }
 }

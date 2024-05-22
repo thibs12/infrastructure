@@ -28,6 +28,30 @@ variable "fargate_memory" {
   default     = 0
 }
 
+variable "app_cpu" {
+  description = "The amount of CPU to allocate to the container"
+  type        = number
+  default     = 0
+}
+
+variable "app_memory" {
+  description = "The amount of memory to allocate to the container"
+  type        = number
+  default     = 0
+}
+
+variable "db_cpu" {
+  description = "The amount of CPU to allocate to the db container"
+  type        = number
+  default     = 0
+}
+
+variable "db_memory" {
+  description = "The amount of memory to allocate to the db container"
+  type        = number
+  default     = 0
+}
+
 variable "aws_region" {
   description = "The AWS region to deploy the ECS cluster to"
   type        = string

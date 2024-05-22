@@ -84,14 +84,14 @@ variable "cluster_name" {
 
 variable "fargate_cpu" {
   description = "The amount of CPU to allocate to the container"
-  type        = string
-  default     = ""
+  type        = number
+  default     = 0
 }
 
 variable "fargate_memory" {
   description = "The amount of memory to allocate to the container"
-  type        = string
-  default     = ""
+  type        = number
+  default     = 0
 }
 
 variable "app_count" {
@@ -110,4 +110,28 @@ variable "log_group_name" {
   description = "Name of the CloudWatch Log Group"
   type        = string
   default     = ""
+}
+
+variable "app_cpu" {
+  description = "The amount of CPU to allocate to the container"
+  type        = number
+  default     = 0
+}
+
+variable "app_memory" {
+  description = "The amount of memory to allocate to the container"
+  type        = number
+  default     = 0
+}
+
+variable "db_cpu" {
+  description = "The amount of CPU to allocate to the db container"
+  type        = number
+  default     = 0  
+}
+
+variable "db_memory" {
+  description = "The amount of memory to allocate to the db container"
+  type        = number
+  default     = 0
 }

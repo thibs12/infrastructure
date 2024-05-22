@@ -10,6 +10,15 @@ resource "aws_security_group" "alb_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+   # Allow traffic on port 3306 for mysql db between containers
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    self = true # Allow traffic from the same security group
+  }
+  
   egress {
     from_port   = 0
     to_port     = 0
@@ -30,6 +39,15 @@ resource "aws_security_group" "ecs_sg" {
     protocol    = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
+
+  # Allow traffic on port 3306 for mysql db between containers
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    self = true # Allow traffic from the same security group
+  }
+  
   egress {
     from_port   = 0
     to_port     = 0
