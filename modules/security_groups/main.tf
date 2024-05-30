@@ -40,6 +40,14 @@ resource "aws_security_group" "ecs_sg" {
     security_groups = [aws_security_group.alb_sg.id]
   }
 
+  // Ingress rule to allow curl inside the container
+  ingress {
+    from_port   = var.app_port
+    to_port     = var.app_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Allow traffic on port 3306 for mysql db between containers
   ingress {
     from_port   = 3306

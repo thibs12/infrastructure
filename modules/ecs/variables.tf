@@ -1,3 +1,9 @@
+variable "vpc_id" {
+  description = "The ID of the VPC to deploy the ECS cluster to"
+  type        = string
+  default     = ""
+}
+
 variable "cluster_name" {
   description = "The name of the ECS cluster"
   type        = string
@@ -64,10 +70,10 @@ variable "app_count" {
   default     = 0
 }
 
-variable "private_subnet_id" {
-  description = "The ID of the private subnet to deploy the ECS service to"
-  type        = string
-  default     = ""
+variable "private_subnet_ids" {
+  description = "The ID of the private subnets to deploy the ECS service to"
+  type        = list(string)
+  default     = []
 }
 
 variable "ecs_sg_id" {
@@ -84,6 +90,12 @@ variable "target_group_arn" {
 
 variable "execution_role_arn" {
   description = "The ARN of the IAM role to use for the ECS task execution"
+  type        = string
+  default     = ""
+}
+
+variable "task_role_arn" {
+  description = "The ARN of the IAM role to use for the ECS task"
   type        = string
   default     = ""
 }
