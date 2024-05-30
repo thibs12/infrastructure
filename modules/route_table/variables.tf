@@ -16,20 +16,20 @@ variable "internet_gateway_id" {
   default     = ""
 }
 
-variable "nat_gateway_id" {
-  description = "The ID of the NAT gateway"
-  type        = string
-  default     = ""
+variable "nat_gateway_ids" {
+  description = "The ID of the NAT gateways"
+  type        = list(string)
+  default     = []
 }
 
-variable "public_subnet_id" {
-  description = "The ID of the public subnet"
-  type        = string
-  default     = ""
+variable "public_subnet_ids" {
+  description = "The ID of the public subnets"
+  type        = list(string)
+  default     = []
 }
 
-variable "private_subnet_id" {
+variable "private_subnet_ids" {
   description = "The ID of the private subnet"
-  type        = string
-  default     = ""
+  type        = list(string)
+  default     = []
 }

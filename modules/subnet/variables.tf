@@ -6,8 +6,8 @@ variable "vpc_id" {
 
 variable "public_subnet_cidr" {
   description = "The CIDR block for the public subnet"
-  type        = string
-  default     = ""
+  type        = list(string)
+  default     = []
 }
 
 variable "subnet_name" {
@@ -16,16 +16,16 @@ variable "subnet_name" {
   default     = ""
 }
 
-variable "availability_zone" {
+variable "availability_zones" {
   description = "The availability zone for the subnet"
-  type        = string
-  default     = ""
+  type        = list(string)
+  default     = []
 }
 
 variable "private_subnet_cidr" {
   description = "The CIDR block for the private subnet"
-  type        = string
-  default     = ""
+  type        = list(string)
+  default     = []
 }
 
 variable "nat_gtw_name" {
