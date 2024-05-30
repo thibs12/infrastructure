@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "main_cluster" {
 }
 
 data "template_file" "template_app" {
-  template = file("./templates/ecs/app.json.tpl")
+  template = file("../templates/ecs/app.json.tpl")
 
   vars = {
     app_image      = var.app_image
@@ -17,7 +17,7 @@ data "template_file" "template_app" {
 }
 
 data "template_file" "template_db" {
-  template = file("./templates/ecs/mysql.json.tpl")
+  template = file("../templates/ecs/mysql.json.tpl")
 
   vars = {
     db_cpu        = var.db_cpu
