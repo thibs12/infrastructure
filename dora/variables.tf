@@ -34,3 +34,15 @@ variable "route_table_name" {
   default     = ""
 }
 
+variable "db_endpoint" {
+  type        = string
+  description = "Endpoint for the RDS instance"
+  default     = ""
+}
+
+variable "db_name" {
+  type        = string
+  description = "Name of the database"
+  default     = ""
+}
+

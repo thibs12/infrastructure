@@ -11,3 +11,4 @@ data "terraform_remote_state" "app" {
 data "aws_availability_zones" "azs" {
   state = "available"
 }
+
