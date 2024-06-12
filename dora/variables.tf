@@ -46,3 +46,27 @@ variable "db_name" {
   default     = ""
 }
 
+variable "clusterArn" {
+  type        = string
+  description = "ARN of the ECS cluster"
+  default     = ""
+}
+
+variable "log_group_name" {
+  type        = string
+  description = "Name of the log group of the application"
+  default     = ""
+}
+
+variable "log_group_arn" {
+  type        = string
+  description = "ARN of the log group of the application"
+  default     = ""
+}
+
+variable "service_name" {
+  type        = string
+  description = "Name of the ECS service"
+  default     = ""
+}
+

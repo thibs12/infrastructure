@@ -18,8 +18,9 @@ def lambda_handler(event, context):
     cursor = conn.cursor()
     
     # Extraire les données du payload
-    commit_id = event['commit_id']
-    commit_time = datetime.strptime(event['commit_time'], '%Y-%m-%dT%H:%M:%SZ')
+    data = json.loads(event['body'])
+    commit_id = data['commit_id']
+    commit_time = datetime.strptime(data['commit_time'], '%Y-%m-%d %H:%M:%S %z')
     
     # Insérer les données dans la table commits
     cursor.execute(

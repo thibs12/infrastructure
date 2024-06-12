@@ -13,9 +13,28 @@ resource "aws_iam_role" "lambda_role" {
       }
     ]
   })
+
+  inline_policy {
+    name   = "TL-lambda_exec_policy"
+    policy = jsonencode({
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "logs:DescribeLogStreams",
+            "logs:DescribeLogGroups",
+            "logs:FilterLogEvents"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ]
+    })
+  }
 }
-
-
 
 resource "aws_iam_policy_attachment" "lambda_policy" {
   name       = "TL-attach-lambda-policy"
@@ -74,6 +93,29 @@ resource "aws_lambda_function" "deploy_function" {
   handler          = "lambda_deployment.lambda_handler"
   runtime          = "python3.8"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_deployment.zip")
+
+  vpc_config {
+    subnet_ids         = [aws_subnet.private_db_subnet_az1.id]
+    security_group_ids = [aws_security_group.lambda_sg.id]
+  }
+
+  environment {
+    variables = {
+      DATABASE_ENDPOINT = var.db_endpoint
+      DATABASE_NAME     = var.db_name
+      DATABASE_USER     = var.db_username
+      DATABASE_PASSWORD = var.db_password
+    }
+  }
+}
+
+resource "aws_lambda_function" "incident_function" {
+  filename         = "${path.module}/python/lambda_incident.zip"
+  function_name    = "TL-incidentFunction"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "lambda_incident.lambda_handler"
+  runtime          = "python3.8"
+  source_code_hash = filebase64sha256("${path.module}/python/lambda_incident.zip")
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_db_subnet_az1.id]

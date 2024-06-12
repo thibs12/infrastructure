@@ -19,8 +19,14 @@ def lambda_handler(event, context):
     cursor = conn.cursor()
 
     # Extraire les données du payload
-    commit_id = event['commit_id']
-    deploy_time = datetime.strptime(event['deploy_time'], '%Y-%m-%dT%H:%M:%SZ')
+    deploy_time = datetime.strptime(event['time'], '%Y-%m-%dT%H:%M:%SZ')
+
+    # On ajoute 2 heures pour corriger le décalage horaire
+    deploy_time = deploy_time.replace(hour=deploy_time.hour + 2)
+
+    # Récupérer l'ID du dernier commit pour le lier à son déploiement
+    cursor.execute("SELECT commit_id FROM commits ORDER BY commit_time DESC LIMIT 1")
+    commit_id = cursor.fetchone()[0]
 
     # Vérifier si le système est en panne
     cursor.execute("SELECT is_down FROM service_status WHERE id = 1")
@@ -34,17 +40,11 @@ def lambda_handler(event, context):
 
         # Récupérer le dernier incident non résolu
         cursor.execute(
-            "SELECT incident_id FROM incidents WHERE resolution_time IS NULL ORDER BY incident_time DESC LIMIT 1"
+            "SELECT incident_id FROM incidents ORDER BY incident_time DESC LIMIT 1"
         )
         incident = cursor.fetchone()
         if incident:
             incident_id = incident[0]
-
-            # Mettre à jour le temps de résolution de l'incident
-            cursor.execute(
-                "UPDATE incidents SET resolution_time = %s WHERE incident_id = %s",
-                (deploy_time, incident_id)
-            )
 
         # Mettre à jour l'état général du système
         cursor.execute(
