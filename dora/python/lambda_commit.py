@@ -1,11 +1,12 @@
 import json
 import pymysql
+import os
 from datetime import datetime
 
-RDS_HOST = "dora-db.ch6qay4mc0rv.eu-west-1.rds.amazonaws.com"
-RDS_DATABASE = "dora"
-RDS_USER = "dorauser"
-RDS_PASSWORD = "dorapassword"
+RDS_HOST = os.environ['db_endpoint']
+RDS_DATABASE = os.environ['db_name']
+RDS_USER = os.environ['db_username']
+RDS_PASSWORD = os.environ['db_password']
 
 def lambda_handler(event, context):
     # Connexion à la base de données RDS

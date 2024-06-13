@@ -1,13 +1,14 @@
 resource "aws_cloudwatch_event_rule" "ecs_new_deployment" {
-  name        = "TL-ecs-deployment-completed"
-  description = "Capture ECS service action events when the service reaches TASKSET_STEADY_STATE."
+  name        = "TL-ecs-new-deployment"
+  description = "Capture ECS task state change events for Fargate tasks."
   event_pattern = jsonencode({
-    "source": ["aws.ecs"],
-    "detail-type": ["ECS Service Action"],
-    "detail": {
-      "eventName": ["TASKSET_STEADY_STATE"],
-      "clusterArn": [var.clusterArn],
-      "serviceName": [var.service_name]
+    "source" : ["aws.ecs"],
+    "detail-type" : ["ECS Task State Change"],
+    "detail" : {
+      "clusterArn" : [var.clusterArn],
+      "group" : ["service:app-service"],
+      "lastStatus" : ["RUNNING"],
+      "desiredStatus" : ["RUNNING"]
     }
   })
 }

@@ -1,14 +1,46 @@
 import json
+import boto3
 import pymysql
+import os
 from datetime import datetime
 
 # Configurer les informations de la base de données RDS
-RDS_HOST = "dora-db.ch6qay4mc0rv.eu-west-1.rds.amazonaws.com"
-RDS_DATABASE = "dora"
-RDS_USER = "dorauser"
-RDS_PASSWORD = "dorapassword"
+RDS_HOST = os.environ['db_endpoint']
+RDS_DATABASE = os.environ['db_name']
+RDS_USER = os.environ['db_username']
+RDS_PASSWORD = os.environ['db_password']
 
 def lambda_handler(event, context):
+
+    # Récupérer les tâches ECS en cours
+    ecs_client = boto3.client('ecs')
+    cluster_arn = event['detail']['clusterArn']
+    
+    # split group["service:service_name"] to get the service_name
+    service_name = event['detail']['group'].split(":").pop()
+
+    tasks = ecs_client.list_tasks(
+        cluster=cluster_arn,
+        serviceName=service_name,
+        desiredStatus='RUNNING'
+    )['taskArns']
+
+    response = ecs_client.describe_tasks(
+        cluster=cluster_arn,
+        tasks=tasks
+    )
+
+    all_healthy = all(
+        task['healthStatus'] == 'HEALTHY'
+        for task in response['tasks']
+    )
+
+    if not all_healthy:
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Deployment in progress, not all tasks are healthy yet')
+        }
+
     # Connexion à la base de données RDS
     conn = pymysql.connect(
         host=RDS_HOST,

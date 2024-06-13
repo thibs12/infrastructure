@@ -1,11 +1,12 @@
 import json
 import pymysql
+import os
 
 # Configurer les informations de la base de données RDS
-RDS_HOST = "dora-db.ch6qay4mc0rv.eu-west-1.rds.amazonaws.com"
-RDS_DATABASE = "dora"
-RDS_USER = "dorauser"
-RDS_PASSWORD = "dorapassword"
+RDS_HOST = os.environ['db_endpoint']
+RDS_DATABASE = os.environ['db_name']
+RDS_USER = os.environ['db_username']
+RDS_PASSWORD = os.environ['db_password']
 
 def lambda_handler(event, context):
     print("Received event: " + json.dumps(event, indent=2))
@@ -20,12 +21,21 @@ def lambda_handler(event, context):
     
     cursor = conn.cursor()
 
-    # Determine the source of the event
+    # Check si le système est en panne pour ne pas référencer deux fois le même incident
+    cursor.execute("SELECT is_down FROM service_status WHERE id = 1")
+    is_down = cursor.fetchone()[0]
+    if is_down:
+        # Le système est déjà en panne
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Incident already recorded!')
+        }
 
     # Check if the event is from an ECS task state change
     if "detail-type" in event and event["detail-type"] == "ECS Task State Change":
         incident_time = event['time']
     
+    # Check if the event is from CloudWatch Logs
     elif "Records" in event:
         # Gestion des événements CloudWatch Logs
         for record in event['Records']:
@@ -35,9 +45,6 @@ def lambda_handler(event, context):
             # Filtrer uniquement les messages contenant "fail:"
             if "fail:" in message:
                 incident_time = log_event['timestamp']
-    
-
-    
     
     cursor.execute(
         "INSERT INTO incidents (incident_time) VALUES ( %s)", (incident_time)
