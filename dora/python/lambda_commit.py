@@ -3,10 +3,12 @@ import pymysql
 import os
 from datetime import datetime
 
-RDS_HOST = os.environ['db_endpoint']
-RDS_DATABASE = os.environ['db_name']
-RDS_USER = os.environ['db_username']
-RDS_PASSWORD = os.environ['db_password']
+# Configurer les informations de la base de données RDS
+RDS_HOST = os.environ['DATABASE_ENDPOINT']
+RDS_DATABASE = os.environ['DATABASE_NAME']
+RDS_USER = os.environ['DATABASE_USER']
+RDS_PASSWORD = os.environ['DATABASE_PASSWORD']
+
 
 def lambda_handler(event, context):
     # Connexion à la base de données RDS
