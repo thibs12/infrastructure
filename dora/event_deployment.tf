@@ -8,7 +8,7 @@ resource "aws_cloudwatch_event_rule" "ecs_new_deployment" {
       "clusterArn" : [var.clusterArn],
       "group" : ["service:app-service"],
       "lastStatus" : ["RUNNING"],
-      "desiredStatus" : ["RUNNING"]
+      "healthStatus" : ["HEALTHY"]
     }
   })
 }
@@ -19,10 +19,3 @@ resource "aws_cloudwatch_event_target" "send_to_lambda" {
   arn       = aws_lambda_function.deploy_function.arn
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch" {
-  statement_id  = "AllowExecutionFromCloudWatch"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.deploy_function.function_name
-  principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.ecs_new_deployment.arn
-}
