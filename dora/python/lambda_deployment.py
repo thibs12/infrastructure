@@ -67,7 +67,7 @@ def lambda_handler(event, context):
 
                 # Récupérer le dernier incident non résolu
                 cursor.execute(
-                    "SELECT incident_id FROM incidents ORDER BY incident_time DESC LIMIT 1"
+                    "SELECT id FROM incidents ORDER BY incident_time DESC LIMIT 1"
                 )
                 incident = cursor.fetchone()
                 if incident:
