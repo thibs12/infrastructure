@@ -9,3 +9,7 @@ output "vpc_id" {
 output "nat_gateway_ids" {
   value = [module.subnet.nat_gateway_id_az1, module.subnet.nat_gateway_id_az2]
 }
+
+output "public_subnet_id_az1" {
+  value = module.subnet.public_subnet_id_az1
+}

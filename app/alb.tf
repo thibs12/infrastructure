@@ -6,4 +6,5 @@ module "alb" {
   alb_sg_id = module.security_groups.alb_sg_id
   health_check_path = var.health_check_path
   app_port = var.app_port
+  tags = var.tags
 }

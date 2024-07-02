@@ -33,3 +33,9 @@ variable "private_subnet_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "tags" {
+  description = "A map of tags to add to all route tables"
+  type        = map(string)
+  default     = {}
+}

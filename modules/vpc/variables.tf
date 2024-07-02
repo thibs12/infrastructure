@@ -27,3 +27,10 @@ variable "enable_dns_support" {
   type        = bool
   default     = true
 }
+
+variable "tags" {
+  description = "A map of tags to add to all route tables"
+  type        = map(string)
+  default     = {}
+}
+

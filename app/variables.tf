@@ -141,3 +141,9 @@ variable "task_role_arn" {
   type        = string
   default     = ""
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags for the resources"
+  default     = {}
+}

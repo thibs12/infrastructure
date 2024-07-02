@@ -1,5 +1,7 @@
 resource "aws_ecs_cluster" "main_cluster" {
   name = "${var.cluster_name}-cluster"
+
+  tags = var.tags
 }
 
 data "template_file" "template_app" {
@@ -30,6 +32,8 @@ resource "aws_service_discovery_private_dns_namespace" "db" {
   name        = "database.com"
   vpc         = var.vpc_id
   description = "Private DNS namespace for ECS services"
+
+  tags = var.tags
 }
 
 resource "aws_service_discovery_service" "mysql" {
@@ -45,6 +49,8 @@ resource "aws_service_discovery_service" "mysql" {
   health_check_custom_config {
     failure_threshold = 1
   }
+
+  tags = var.tags
 }
 
 
@@ -57,6 +63,8 @@ resource "aws_ecs_task_definition" "db" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   execution_role_arn       = var.execution_role_arn
+
+  tags = var.tags
 }
 
 resource "aws_ecs_service" "db_service" {
@@ -76,6 +84,7 @@ resource "aws_ecs_service" "db_service" {
     registry_arn = aws_service_discovery_service.mysql.arn
   }
   
+  tags = var.tags
 }
 
 resource "aws_ecs_task_definition" "app" {
@@ -87,6 +96,8 @@ resource "aws_ecs_task_definition" "app" {
   network_mode             = "awsvpc"
   execution_role_arn       = var.execution_role_arn
   task_role_arn = var.task_role_arn
+
+  tags = var.tags
 }
 
 resource "aws_ecs_service" "app_service" {
@@ -108,4 +119,6 @@ resource "aws_ecs_service" "app_service" {
     container_name   = "app"
     container_port   = var.app_port
   }
+
+  tags = var.tags
 }

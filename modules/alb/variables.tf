@@ -33,3 +33,9 @@ variable "app_port" {
   type        = number
   default = 0
 }
+
+variable "tags" {
+  description = "Tags to apply to the resources"
+  type        = map(string)
+  default = {}
+}

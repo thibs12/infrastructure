@@ -3,3 +3,9 @@ variable "log_group_name" {
   type        = string
   default     = ""
 }
+
+variable "tags" {
+  description = "Tags to apply to the CloudWatch Log Group"
+  type        = map(string)
+  default     = {}
+}

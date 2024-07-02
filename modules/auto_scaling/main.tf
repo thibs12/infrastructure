@@ -4,6 +4,8 @@ resource "aws_appautoscaling_target" "target" {
   resource_id        = var.resource_id
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
+
+  tags = var.tags
 }
 
 resource "aws_appautoscaling_policy" "up" {
@@ -56,6 +58,8 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
         ClusterName = var.cluster_name
         ServiceName = var.ecs_service_name
     }
+
+    tags = var.tags
 }
 
 # Cloudwatch alarm for scaling down
@@ -74,4 +78,6 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
         ClusterName = var.cluster_name
         ServiceName = var.ecs_service_name
     }
+
+    tags = var.tags
 }

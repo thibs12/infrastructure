@@ -15,3 +15,9 @@ variable "sg_name" {
     description = "The name of the security group"
     default = ""
 }
+
+variable "tags" {
+    type = map(string)
+    description = "Tags to apply to the security group"
+    default = {}
+}

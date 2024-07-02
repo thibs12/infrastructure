@@ -6,4 +6,5 @@ module "route_table" {
   nat_gateway_ids      = [module.subnet.nat_gateway_id_az1, module.subnet.nat_gateway_id_az2]
   public_subnet_ids    = [module.subnet.public_subnet_id_az1, module.subnet.public_subnet_id_az2]
   private_subnet_ids   = [module.subnet.private_subnet_id_az1, module.subnet.private_subnet_id_az2]
+  tags = var.tags
 }

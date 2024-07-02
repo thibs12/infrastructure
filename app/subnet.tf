@@ -5,6 +5,6 @@ module "subnet" {
   subnet_name         = var.subnet_name
   availability_zones   = data.aws_availability_zones.azs.names
   private_subnet_cidr = var.private_subnet_cidr
-
   nat_gtw_name = var.nat_gtw_name
+  tags = var.tags
 }

@@ -33,3 +33,9 @@ variable "nat_gtw_name" {
   type        = string
   default     = ""
 }
+
+variable "tags" {
+  description = "A map of tags to add to all subnets"
+  type        = map(string)
+  default     = {}
+}
