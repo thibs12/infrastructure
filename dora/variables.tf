@@ -76,3 +76,9 @@ variable "tags" {
   default     = {}
 }
 
+variable "ami_grafana" {
+  type        = string
+  description = "AMI ID for the Grafana instance"
+  default     = ""
+}
+

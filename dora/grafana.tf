@@ -27,7 +27,7 @@ resource "aws_security_group" "grafana_sg" {
 }
 
 resource "aws_instance" "grafana" {
-    ami           = data.aws_ami.amazon_linux.id
+    ami           = var.ami_grafana
     instance_type = "t2.micro"   
 
     vpc_security_group_ids = [aws_security_group.grafana_sg.id]
@@ -43,5 +43,7 @@ resource "aws_instance" "grafana" {
                     sudo docker run -d -p 3000:3000 --name=grafana grafana/grafana
                     EOF
 
-    tags = var.tags
+    tags = merge(var.tags, {
+        "Name" = "grafana"
+    })
 }

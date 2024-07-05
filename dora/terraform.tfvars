@@ -16,3 +16,4 @@ tags = {
   Owner      = "t.lamps@groupeonepoint.com"
   IaC        = "Terraform"
 }
+ami_grafana = "ami-07177a5271e18f039"
