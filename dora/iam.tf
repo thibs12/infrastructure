@@ -13,6 +13,7 @@ resource "aws_iam_role" "lambda_role" {
       }
     ]
   })
+  tags = var.tags
 
   inline_policy {
     name   = "TL-lambda_exec_policy"
@@ -60,6 +61,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 resource "aws_iam_policy" "ecs_policy" {
   name        = "ecs-access-policy"
   description = "Policy to allow ECS actions"
+  tags = var.tags
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

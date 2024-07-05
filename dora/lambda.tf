@@ -8,9 +8,7 @@ resource "aws_security_group" "lambda_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "TL-lambda-sg"
-  }
+  tags = var.tags
 }
 
 resource "aws_lambda_function" "commit_function" {
@@ -20,6 +18,7 @@ resource "aws_lambda_function" "commit_function" {
   handler          = "lambda_commit.lambda_handler"
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_commit.zip")
+  tags = var.tags
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_db_subnet_az1.id]
@@ -44,6 +43,7 @@ resource "aws_lambda_function" "deploy_function" {
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_deployment.zip")
   timeout          = 600
+  tags = var.tags
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_db_subnet_az1.id]
@@ -69,6 +69,7 @@ resource "aws_lambda_function" "incident_function" {
   handler          = "lambda_incident.lambda_handler"
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_incident.zip")
+  tags = var.tags
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_db_subnet_az1.id]

@@ -10,4 +10,9 @@ clusterArn          = "arn:aws:ecs:eu-west-1:891377364444:cluster/TL-ECS-cluster
 log_group_name      = "/ecs/app"
 log_group_arn       = "arn:aws:logs:eu-west-1:891377364444:log-group:/ecs/app:*"
 service_name        = "app-service"
-
+tags = {
+  Production = "False"
+  ProjectId  = "DORA"
+  Owner      = "t.lamps@groupeonepoint.com"
+  IaC        = "Terraform"
+}

@@ -261,9 +261,9 @@ aws lambda invoke --function-name TL-deployFunction \
 
 curl -X POST https://ih4ebnhsfe.execute-api.eu-west-1.amazonaws.com/prod/commit \
           -H "Content-Type: application/json" \
-          -d '{"commit_id":"15" , "commit_time":"2024-07-08 11:34:28 +0200" }'
+          -d '{"commit_id":"17" , "commit_time":"2024-07-08 11:34:28 +0200" }'
 
-PAYLOAD=$(echo '{ "commit_id":"15", "deploy_time":"2024-07-08 11:41:01 +0200"}' | openssl base64)
+PAYLOAD=$(echo '{ "commit_id":"17", "deploy_time":"2024-07-08 11:41:01 +0200"}' | openssl base64)
 aws lambda invoke --function-name TL-deployFunction \
             --payload "$PAYLOAD" \
             response.json

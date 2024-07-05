@@ -70,3 +70,9 @@ variable "service_name" {
   default     = ""
 }
 
+variable "tags" {
+  type        = map(string)
+  description = "Tags for the resources"
+  default     = {}
+}
+

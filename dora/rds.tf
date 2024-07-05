@@ -2,6 +2,7 @@ resource "aws_security_group" "rds_sg" {
   name        = "${var.sg_name}-rds"
   description = "Security group for RDS instance"
   vpc_id      = data.terraform_remote_state.app.outputs.vpc_id
+  tags = var.tags
 
   ingress {
     from_port   = 3306
@@ -31,4 +32,6 @@ resource "aws_db_instance" "rds_instance" {
   skip_final_snapshot    = true
   publicly_accessible    = false
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
+
+  tags = var.tags
 }
