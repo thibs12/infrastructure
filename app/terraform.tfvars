@@ -21,7 +21,6 @@ app_count           = 2
 cluster_name        = "TL-ECS"
 ecs_task_name       = "limited-TL-ECS-Task"
 log_group_name      = "/ecs/app"
-task_role_arn       = "arn:aws:iam::891377364444:role/limited-task-role"
 tags = {
   Production = "False"
   ProjectId  = "DORA"

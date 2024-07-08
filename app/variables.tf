@@ -136,12 +136,6 @@ variable "db_memory" {
   default     = 0
 }
 
-variable "task_role_arn" {
-  description = "The ARN of the task role"
-  type        = string
-  default     = ""
-}
-
 variable "tags" {
   type        = map(string)
   description = "Tags for the resources"
