@@ -59,7 +59,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 }
 
 resource "aws_iam_policy" "ecs_policy" {
-  name        = "ecs-access-policy"
+  name        = "TL-ecs-access-policy"
   description = "Policy to allow ECS actions"
   tags = var.tags
   policy = jsonencode({
