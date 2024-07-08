@@ -82,3 +82,9 @@ variable "ami_grafana" {
   default     = ""
 }
 
+variable "ami_bastion" {
+  type        = string
+  description = "AMI ID for the Bastion instance"
+  default     = ""  
+}
+

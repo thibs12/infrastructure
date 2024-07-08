@@ -17,3 +17,4 @@ tags = {
   IaC        = "Terraform"
 }
 ami_grafana = "ami-07177a5271e18f039"
+ami_bastion = "ami-0163d8bb0e1bc3cb4"
