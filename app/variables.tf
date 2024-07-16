@@ -141,3 +141,9 @@ variable "tags" {
   description = "Tags for the resources"
   default     = {}
 }
+
+variable "docker_secrets_arn" {
+  description = "The ARN of the secret to use for the database password"
+  type        = string
+  default     = ""
+}

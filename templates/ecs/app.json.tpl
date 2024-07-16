@@ -3,7 +3,7 @@
     "name": "app",
     "image": "${app_image}",
     "repositoryCredentials": {
-      "credentialsParameter": "arn:aws:secretsmanager:eu-west-1:891377364444:secret:docker_credentials-XgV9MJ"
+      "credentialsParameter": "${docker_creds}"
       },
     "cpu": ${app_cpu},
     "memory": ${app_memory},

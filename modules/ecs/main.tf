@@ -8,13 +8,14 @@ data "template_file" "template_app" {
   template = file("../templates/ecs/app.json.tpl")
 
   vars = {
-    app_image  = var.app_image
-    app_port   = var.app_port
-    app_cpu    = var.app_cpu
-    app_memory = var.app_memory
-    db_cpu     = var.db_cpu
-    db_memory  = var.db_memory
-    aws_region = var.aws_region
+    docker_creds = var.docker_secrets_arn
+    app_image    = var.app_image
+    app_port     = var.app_port
+    app_cpu      = var.app_cpu
+    app_memory   = var.app_memory
+    db_cpu       = var.db_cpu
+    db_memory    = var.db_memory
+    aws_region   = var.aws_region
   }
 }
 

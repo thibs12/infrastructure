@@ -105,3 +105,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "docker_secrets_arn" {
+  description = "The ARN of the secret to use for the database password"
+  type        = string
+  default     = ""
+}

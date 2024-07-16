@@ -27,4 +27,5 @@ tags = {
   Owner      = "t.lamps@groupeonepoint.com"
   IaC        = "Terraform"
 }
+docker_secrets_arn = "arn:aws:secretsmanager:eu-west-1:891377364444:secret:docker_credentials-XgV9MJ"
 

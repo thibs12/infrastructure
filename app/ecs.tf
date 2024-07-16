@@ -18,4 +18,5 @@ module "ecs" {
   task_role_arn      = module.iam.ecs_task_role_arn
   vpc_id             = module.vpc.vpc_id
   tags               = var.tags
+  docker_secrets_arn = var.docker_secrets_arn
 }
