@@ -49,14 +49,6 @@ resource "aws_api_gateway_method" "deploy_method" {
   authorization = "NONE"
 }
 
-resource "aws_lambda_permission" "deploy_permission" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.deploy_function.function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
-}
-
 resource "aws_api_gateway_integration" "deploy_integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.deploy_resource.id

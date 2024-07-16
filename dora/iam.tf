@@ -1,5 +1,5 @@
-resource "aws_iam_role" "lambda_role" {
-  name = "limited-TL-lambda-exec-role"
+resource "aws_iam_role" "lambda_commit_role" {
+  name = "limited-TL-lambda-commit-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -14,38 +14,75 @@ resource "aws_iam_role" "lambda_role" {
     ]
   })
   tags = var.tags
+}
 
-  inline_policy {
-    name   = "TL-lambda_exec_policy"
-    policy = jsonencode({
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Action": [
-            "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents",
-            "logs:DescribeLogStreams",
-            "logs:DescribeLogGroups",
-            "logs:FilterLogEvents"
-          ],
-          "Effect": "Allow",
-          "Resource": "*"
+resource "aws_iam_role" "lambda_deploy_role" {
+  name = "limited-TL-lambda-deploy-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
         }
-      ]
-    })
-  }
+      }
+    ]
+  })
+  tags = var.tags
 }
 
-resource "aws_iam_policy_attachment" "lambda_policy" {
-  name       = "TL-attach-lambda-policy"
-  roles      = [aws_iam_role.lambda_role.name]
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+resource "aws_iam_role" "lambda_incident_role" {
+  name = "limited-TL-lambda-incident-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+  tags = var.tags
 }
 
-resource "aws_iam_policy_attachment" "lambda_policy_vpc" {
+resource "aws_iam_policy" "TL-lambda_logs_policy" {
+  name        = "TL-lambda-logs-policy"
+  description = "Policy to allow logs actions"
+  tags = var.tags
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "logs:DescribeLogStreams",
+          "logs:DescribeLogGroups",
+          "logs:FilterLogEvents"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Attach the logs policy to the roles
+resource "aws_iam_policy_attachment" "attach_logs_policy" {
+  name       = "TL-attach-lambda-policy-logs"
+  roles      = [aws_iam_role.lambda_commit_role.name, aws_iam_role.lambda_deploy_role.name, aws_iam_role.lambda_incident_role.name]
+  policy_arn = aws_iam_policy.TL-lambda_logs_policy.arn
+}
+
+# Attach the VPC policy to the roles
+resource "aws_iam_policy_attachment" "attach_vpc_policy" {
   name       = "TL-attach-lambda-policy-vpc"
-  roles      = [aws_iam_role.lambda_role.name]
+  roles      = [aws_iam_role.lambda_commit_role.name, aws_iam_role.lambda_deploy_role.name, aws_iam_role.lambda_incident_role.name]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
@@ -78,7 +115,7 @@ resource "aws_iam_policy" "ecs_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_policy_attachment" {
-  role       = aws_iam_role.lambda_role.name
+  role       = aws_iam_role.lambda_deploy_role.name
   policy_arn = aws_iam_policy.ecs_policy.arn
 }
 

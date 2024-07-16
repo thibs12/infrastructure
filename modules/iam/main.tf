@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 
 # TASK ROLE FOR ECS
 resource "aws_iam_role" "ecs_task_role" {
-  name = "limited-task-role"
+  name = "limited-TL-task-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 

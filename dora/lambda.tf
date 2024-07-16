@@ -14,7 +14,7 @@ resource "aws_security_group" "lambda_sg" {
 resource "aws_lambda_function" "commit_function" {
   filename         = "${path.module}/python/lambda_commit.zip"
   function_name    = "TL-commitFunction"
-  role             = aws_iam_role.lambda_role.arn
+  role             = aws_iam_role.lambda_commit_role.arn
   handler          = "lambda_commit.lambda_handler"
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_commit.zip")
@@ -38,7 +38,7 @@ resource "aws_lambda_function" "commit_function" {
 resource "aws_lambda_function" "deploy_function" {
   filename         = "${path.module}/python/lambda_deployment.zip"
   function_name    = "TL-deployFunction"
-  role             = aws_iam_role.lambda_role.arn
+  role             = aws_iam_role.lambda_deploy_role.arn
   handler          = "lambda_deployment.lambda_handler"
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_deployment.zip")
@@ -65,7 +65,7 @@ resource "aws_lambda_function" "deploy_function" {
 resource "aws_lambda_function" "incident_function" {
   filename         = "${path.module}/python/lambda_incident.zip"
   function_name    = "TL-incidentFunction"
-  role             = aws_iam_role.lambda_role.arn
+  role             = aws_iam_role.lambda_incident_role.arn
   handler          = "lambda_incident.lambda_handler"
   runtime          = "python3.10"
   source_code_hash = filebase64sha256("${path.module}/python/lambda_incident.zip")
