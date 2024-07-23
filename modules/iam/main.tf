@@ -3,7 +3,12 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   name               = "${var.ecs_task_name}-execution-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-ECS-Task-Execution-Role"
+    }
+  )
 }
 
 resource "aws_iam_role_policy" "ecs_task_execution_role_inline_policy" {

@@ -4,7 +4,12 @@ resource "aws_security_group" "alb_sg" {
   description = "Allow HTTP and HTTPS inbound traffic"
   vpc_id      = var.vpc_id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-SG-ALB"
+    }
+  )
 
   ingress {
     from_port   = var.app_port
@@ -27,7 +32,12 @@ resource "aws_security_group" "ecs_sg" {
   description = "Allow traffic from ALB only"
   vpc_id      = var.vpc_id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-SG-ECS"
+    }
+  )
 
   ingress {
     from_port   = var.app_port

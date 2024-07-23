@@ -3,7 +3,12 @@ resource "aws_alb" "main_alb" {
   subnets = var.public_subnet_ids
   security_groups = [var.alb_sg_id]
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-ALB"
+    }
+  )
 }
 
 resource "aws_alb_target_group" "target_app" {
@@ -22,7 +27,12 @@ resource "aws_alb_target_group" "target_app" {
     unhealthy_threshold = 2
   }
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-ALB-Target-Group"
+    }
+  )
 }
 
 resource "aws_alb_listener" "front_end" {
@@ -35,5 +45,10 @@ resource "aws_alb_listener" "front_end" {
     target_group_arn = aws_alb_target_group.target_app.arn
   }
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-ALB-Listener"
+    }
+  )
 }

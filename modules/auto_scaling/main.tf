@@ -5,7 +5,12 @@ resource "aws_appautoscaling_target" "target" {
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-AppAutoScaling-Target"
+    }
+  )
 }
 
 resource "aws_appautoscaling_policy" "up" {
@@ -59,7 +64,12 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
         ServiceName = var.ecs_service_name
     }
 
-    tags = var.tags
+    tags = merge(
+        var.tags,
+        {
+            "Name" = "DORA-Cloudwatch-Alarm-High-CPU"
+        }
+    )
 }
 
 # Cloudwatch alarm for scaling down
@@ -79,5 +89,10 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
         ServiceName = var.ecs_service_name
     }
 
-    tags = var.tags
+    tags = merge(
+        var.tags,
+        {
+            "Name" = "DORA-Cloudwatch-Alarm-low-CPU"
+        }
+    )
 }

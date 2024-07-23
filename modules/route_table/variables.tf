@@ -4,12 +4,6 @@ variable "vpc_id" {
   default     = ""
 }
 
-variable "route_table_name" {
-  description = "The name of the route table"
-  type        = string
-  default     = ""
-}
-
 variable "internet_gateway_id" {
   description = "The ID of the internet gateway"
   type        = string

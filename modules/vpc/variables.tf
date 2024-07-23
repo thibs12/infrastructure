@@ -4,18 +4,6 @@ variable "vpc_cidr" {
   default     = ""
 }
 
-variable "vpc_name" {
-  description = "Name of the VPC"
-  type        = string
-  default     = ""
-}
-
-variable "vpc_tenancy" {
-  description = "Tenancy of the VPC"
-  type        = string
-  default     = "default"
-}
-
 variable "enable_dns_hostnames" {
   description = "A boolean flag to enable/disable DNS hostnames in the VPC"
   type        = bool

@@ -2,7 +2,12 @@
 resource "aws_route_table" "public_route_table" {
   vpc_id = var.vpc_id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-Public-Route-Table"
+    }
+  )
 }
 
 resource "aws_route" "public_route" {
@@ -31,7 +36,12 @@ resource "aws_route_table_association" "public_rt_association_az2" {
 resource "aws_route_table" "private_route_table_az1" {
   vpc_id = var.vpc_id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-Private-Route-Table-AZ1"
+    }
+  )
 }
 
 resource "aws_route" "private_route_az1" {
@@ -52,7 +62,12 @@ resource "aws_route_table_association" "private_rt_association_az1" {
 resource "aws_route_table" "private_route_table_az2" {
   vpc_id = var.vpc_id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-Private-Route-Table-AZ2"
+    }
+  )
 }
 
 resource "aws_route" "private_route_az2" {

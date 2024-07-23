@@ -4,11 +4,21 @@ resource "aws_vpc" "custom_vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-VPC"
+    }
+  )
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.custom_vpc.id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "DORA-IGW"
+    }
+  )
 }
