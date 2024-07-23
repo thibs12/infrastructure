@@ -2,7 +2,9 @@ resource "aws_security_group" "rds_sg" {
   name        = "${var.sg_name}-rds"
   description = "Security group for RDS instance"
   vpc_id      = data.terraform_remote_state.app.outputs.vpc_id
-  tags        = var.tags
+  tags        = merge(var.tags, {
+    "Name" = "DORA-rds-sg"
+  })
 
   ingress {
     from_port   = 3306
@@ -33,7 +35,9 @@ resource "aws_db_instance" "rds_instance" {
   publicly_accessible    = false
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
 
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name" = "DORA-rds-instance"
+  })
 }
 
 resource "aws_security_group" "bastion_sg" {
@@ -41,7 +45,7 @@ resource "aws_security_group" "bastion_sg" {
   description = "sg for the db bastion"
   vpc_id      = data.terraform_remote_state.app.outputs.vpc_id
   tags        = merge(var.tags, {
-    "Name" = "TL-bastion-sg"
+    "Name" = "DORA-bastion-sg"
   })
 
   ingress {
@@ -66,6 +70,6 @@ resource "aws_instance" "bastion" {
   subnet_id              = data.terraform_remote_state.app.outputs.public_subnet_id_az1
 
   tags = merge(var.tags, {
-    "Name" = "bastion"
+    "Name" = "DORA-bastion"
   })
 }

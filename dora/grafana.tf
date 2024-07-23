@@ -2,7 +2,9 @@ resource "aws_security_group" "grafana_sg" {
   name        = "${var.sg_name}-grafana"
   description = "Security group for Grafana instance"
   vpc_id      = data.terraform_remote_state.app.outputs.vpc_id
-  tags        = var.tags
+  tags        = merge(var.tags, {
+    "Name" = "DORA-grafana-sg"
+  })
 
   ingress {
     from_port   = 3000
@@ -44,7 +46,7 @@ resource "aws_instance" "grafana" {
                     EOF
 
   tags = merge(var.tags, {
-    "Name" = "grafana"
+    "Name" = "DORA-grafana"
   })
 }
 

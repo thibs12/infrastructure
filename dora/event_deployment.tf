@@ -1,7 +1,10 @@
 resource "aws_cloudwatch_event_rule" "ecs_new_deployment" {
-  name        = "TL-ecs-new-deployment"
+  name        = "DORA-ecs-new-deployment"
   description = "Capture ECS task state change events for Fargate tasks."
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name" = "DORA-ecs-new-deployment"
+  })
+  
   event_pattern = jsonencode({
     "source" : ["aws.ecs"],
     "detail-type" : ["ECS Task State Change"],

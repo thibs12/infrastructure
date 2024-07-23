@@ -16,22 +16,10 @@ variable "db_password" {
   default     = ""
 }
 
-variable "subnet_name" {
-  type        = string
-  description = "Name of the subnet"
-  default     = ""
-}
-
 variable "private_subnet_cidr" {
   type        = list(string)
   description = "CIDR block for the private subnets"
   default     = []
-}
-
-variable "route_table_name" {
-  type        = string
-  description = "Name of the route table"
-  default     = ""
 }
 
 variable "db_endpoint" {

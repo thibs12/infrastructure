@@ -1,7 +1,9 @@
 resource "aws_api_gateway_rest_api" "api" {
-  name        = "TL-DORA-Metrics-API"
+  name        = "DORA-DORA-Metrics-API"
   description = "API for DORA metrics"
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name" = "DORA-Metrics-API-gateway"
+  })
 }
 
 # COMMIT

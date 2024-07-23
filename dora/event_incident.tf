@@ -1,7 +1,10 @@
 resource "aws_cloudwatch_event_rule" "ecs_task_stopped" {
-  name        = "TL-ecs-task-stopped"
+  name        = "DORA-ecs-task-stopped"
   description = "Capture ECS task stopped events for Fargate tasks."
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name" = "DORA-ecs-task-stopped"
+  })
+  
   event_pattern = jsonencode({
     "source": ["aws.ecs"],
     "detail-type": ["ECS Task State Change"],
